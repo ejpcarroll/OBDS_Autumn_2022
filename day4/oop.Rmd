@@ -1,0 +1,151 @@
+---
+title: "Example code for R S3 object oriented programming"
+author: "Kevin Rue-Albrecht"
+date: "16/11/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+# Exercises
+
+## Character
+
+```{r}
+character_object <- "A"
+character_object
+```
+
+```{r}
+str(character_object) #str means structure: a vector that contains character values and just the character A
+```
+
+```{r}
+class(character_object)
+```
+
+```{r}
+attributes(character_object)
+```
+
+```{r}
+character_object2 <- c("A", "B", "C")
+character_object2
+```
+
+```{r}
+str(character_object2) #object contains characters, there are three characters (1:3) which are A, B, C
+```
+
+```{r}
+class(character_object2)
+```
+
+```{r}
+attributes(character_object2)
+```
+
+# Exercise
+
+## Factors
+
+```{r, include=TRUE}
+factor_object <- factor(c("A", "B", "C"))
+factor_object #this is a factor. If its a factor R knows it has to show you levels. A factor is a type of vector. 
+```
+
+```{r}
+str(factor_object) # its a factor with 3 levels (A, B and C), the first value in the factor is A, second value is B, third value is C. If C, B, A, the numbers would be 3,2,1 
+```
+
+```{r}
+class(factor_object) # class is a factor
+```
+
+```{r}
+attributes(factor_object)
+```
+
+```{r}
+attr(factor_object, "levels")
+```
+
+```{r}
+attr(factor_object, "class")
+```
+
+# Exercise
+
+## Data-frames
+
+```{r}
+dataframe_object <- data.frame(
+  numbers = c(1, 2, 3),
+  strings = c("A", "B", "C")
+  )
+dataframe_object # a dataframe is actually a list
+```
+
+```{r}
+class(dataframe_object)
+```
+
+```{r, include=TRUE}
+str(dataframe_object)
+```
+
+```{r}
+attributes(dataframe_object)
+```
+
+# Exercise
+
+## Matrices
+
+```{r}
+matrix_object <- matrix(
+  data = c(1, 2, 3, 4, 5, 6, 7, 8),
+  nrow = 2
+  )
+matrix_object #a matrix is a vector, whereas a dataframe is a list
+```
+
+```{r}
+class(matrix_object) # you can have more than one class. As this is a matrix and an array, any methods that work on either a matrix or an array will work on this dataset
+```
+
+```{r}
+str(matrix_object) # structure is numeric and has  2 rows and 4 columns. All values in a matrix must have the same type. This is the main difference between a matrix and a dataframe (where you can have more than one type of data as it's a list)
+```
+
+```{r}
+attributes(matrix_object) # gives you the dimensions, 2 rows by 4 columns
+```
+
+```{r}
+attr(matrix_object, "dim")
+```
+
+# Exercise
+
+## S3 method dispatch
+
+```{r}
+methods("print") %>% head(14) # tells you all the methods associated with the "print" function (just used head to reduce the list lenght as it would be >100). 
+```
+
+```{r}
+print.factor(factor_object)
+```
+
+```{r}
+print.factor(character_object) # gives you a warning as a factor should have levels, but character_objects doesn't
+```
+
+```{r}
+print.default(character_object)
+```
+
